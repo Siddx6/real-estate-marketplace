@@ -35,7 +35,7 @@ function AudienceSplit() {
             and update or remove it anytime.
           </p>
           <Link
-            to="/signup"
+            to="/post-property"
             className="inline-block bg-slate-900 text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-800 transition"
           >
             Post a property

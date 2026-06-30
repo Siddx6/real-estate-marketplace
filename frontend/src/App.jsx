@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Browse from "./pages/Browse";
 import PropertyDetail from "./pages/PropertyDetail";
+import PostProperty from "./pages/PostProperty";
+import OwnerDashboard from "./pages/OwnerDashboard";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/properties" element={<Browse />} />
       <Route path="/properties/:id" element={<PropertyDetail />} />
+      <Route path="/post-property" element={<PostProperty />} />
+      <Route path="/dashboard" element={<OwnerDashboard />} />
     </Routes>
   );
 }

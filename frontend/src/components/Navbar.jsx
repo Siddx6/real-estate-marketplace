@@ -27,16 +27,24 @@ function Navbar() {
       </div>
 
       {user ? (
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-slate-300">Hi, {user.name}</span>
-          <button
-            onClick={handleLogout}
-            className="text-sm font-semibold px-4 py-2 bg-white text-[#1a1530] rounded-md hover:bg-slate-100 transition"
-          >
-            Log Out
-          </button>
-        </div>
-      ) : (
+  <div className="flex items-center gap-4">
+    <span className="text-sm text-slate-300">Hi, {user.name}</span>
+    {user.role === "owner" && (
+      <Link
+        to="/dashboard"
+        className="text-sm font-medium text-slate-300 hover:text-white transition"
+      >
+        Dashboard
+      </Link>
+    )}
+    <button
+      onClick={handleLogout}
+      className="text-sm font-semibold px-4 py-2 bg-white text-[#1a1530] rounded-md hover:bg-slate-100 transition"
+    >
+      Log Out
+    </button>
+  </div>
+) : (
         <div className="flex items-center gap-3">
           <Link
             to="/login"
