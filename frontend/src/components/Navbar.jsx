@@ -37,6 +37,14 @@ function Navbar() {
         Dashboard
       </Link>
     )}
+    {user.role === "buyer" && (
+      <Link
+        to="/wishlist"
+        className="text-sm font-medium text-slate-300 hover:text-white transition"
+      >
+        Wishlist
+      </Link>
+    )}
     <button
       onClick={handleLogout}
       className="text-sm font-semibold px-4 py-2 bg-white text-[#1a1530] rounded-md hover:bg-slate-100 transition"

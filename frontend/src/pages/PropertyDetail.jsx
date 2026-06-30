@@ -1,14 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
 import Navbar from "../components/Navbar";
 import ContactOwnerModal from "../components/ContactOwnerModal";
+import { AuthContext } from "../context/AuthContext";
 
 function PropertyDetail() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const { user } = useContext(AuthContext);
+  const [wishlisted, setWishlisted] = useState(false);
+
+  const toggleWishlist = async () => {
+    try {
+      if (wishlisted) {
+        await api.delete(`/wishlist/${property._id}`);
+      } else {
+        await api.post(`/wishlist/${property._id}`);
+      }
+      setWishlisted(!wishlisted);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     api
@@ -107,6 +123,18 @@ function PropertyDetail() {
               >
                 Contact Owner
               </button>
+              {user && user.role === "buyer" && (
+                <button
+                  onClick={toggleWishlist}
+                  className={`w-full mt-3 py-3 rounded-lg font-semibold text-sm border transition ${
+                    wishlisted
+                      ? "bg-pink-50 text-pink-600 border-pink-200"
+                      : "border-slate-300 text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  {wishlisted ? "❤️ Saved" : "🤍 Save to Wishlist"}
+                </button>
+              )}
             </div>
           </div>
         </div>
