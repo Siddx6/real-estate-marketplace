@@ -1,4 +1,5 @@
 const Property = require("../models/Property");
+const cloudinary = require("../config/cloudinary");
 
 const createProperty = async (req, res) => {
   try {
@@ -112,6 +113,33 @@ const getMyProperties = async (req, res) => {
   }
 };
 
+const uploadImages = async (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: "No files uploaded" });
+    }
+
+    const uploadPromises = req.files.map((file) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "real-estate-marketplace" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result.secure_url);
+          }
+        );
+        stream.end(file.buffer);
+      });
+    });
+
+    const imageUrls = await Promise.all(uploadPromises);
+
+    res.status(200).json({ images: imageUrls });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   createProperty,
   getProperties,
@@ -119,5 +147,5 @@ module.exports = {
   updateProperty,
   deleteProperty,
   getMyProperties,
+  uploadImages,
 };
-
