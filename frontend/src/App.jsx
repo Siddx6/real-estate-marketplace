@@ -7,6 +7,7 @@ import PropertyDetail from "./pages/PropertyDetail";
 import PostProperty from "./pages/PostProperty";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import Wishlist from "./pages/Wishlist";
+import AdminPanel from "./pages/AdminPanel";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/post-property" element={<PostProperty />} />
       <Route path="/dashboard" element={<OwnerDashboard />} />
       <Route path="/wishlist" element={<Wishlist />} />
+      <Route path="/admin" element={<AdminPanel />} />
     </Routes>
   );
 }
