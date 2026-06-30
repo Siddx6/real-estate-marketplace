@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
 import Navbar from "../components/Navbar";
+import ContactOwnerModal from "../components/ContactOwnerModal";
 
 function PropertyDetail() {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     api
@@ -99,13 +101,20 @@ function PropertyDetail() {
               <p className="text-sm text-slate-500 mt-1">
                 Listed by {property.owner?.name || "Owner"}
               </p>
-              <button className="w-full mt-6 bg-[#5b2a8c] text-white font-semibold py-3 rounded-lg hover:bg-[#4a2274] transition">
+              <button
+                onClick={() => setShowModal(true)}
+                className="w-full mt-6 bg-[#5b2a8c] text-white font-semibold py-3 rounded-lg hover:bg-[#4a2274] transition"
+              >
                 Contact Owner
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {showModal && (
+        <ContactOwnerModal propertyId={property._id} onClose={() => setShowModal(false)} />
+      )}
     </div>
   );
 }
